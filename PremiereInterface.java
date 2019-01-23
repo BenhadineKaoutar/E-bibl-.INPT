@@ -81,8 +81,8 @@ public class PremiereInterface {
 		
 		JButton btnNewButton = new JButton("Submett");
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
-		btnNewButton.setForeground(UIManager.getColor("CheckBox.focus"));
-		btnNewButton.setBackground(Color.WHITE);
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(204, 51, 0));
 		btnNewButton.setBounds(150, 215, 166, 29);
 		frame.getContentPane().add(btnNewButton);
 		
@@ -104,9 +104,16 @@ public class PremiereInterface {
 		frame.getContentPane().add(label);
 		
 		JButton btnCreateNow = new JButton("Create Now");
+		btnCreateNow.setForeground(new Color(255, 255, 255));
+		btnCreateNow.setBackground(new Color(0, 0, 0));
 		btnCreateNow.setFont(new Font("Arial", Font.BOLD, 11));
 		btnCreateNow.setBounds(150, 325, 166, 29);
 		frame.getContentPane().add(btnCreateNow);
+		
+		JLabel lblVersion = new JLabel("version 1.0.0");
+		lblVersion.setForeground(new Color(51, 153, 153));
+		lblVersion.setBounds(198, 468, 85, 14);
+		frame.getContentPane().add(lblVersion);
 		frame.setBounds(100, 100, 1002, 531);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

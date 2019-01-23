@@ -79,7 +79,8 @@ public class PremiereInterface {
 		passwordField.setBounds(150, 187, 166, 20);
 		frame.getContentPane().add(passwordField);
 		
-		JButton btnNewButton = new JButton("Submett");
+		JButton btnNewButton = new JButton("Submit");
+		btnNewButton.setBorder(null);
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBackground(new Color(204, 51, 0));
@@ -104,6 +105,7 @@ public class PremiereInterface {
 		frame.getContentPane().add(label);
 		
 		JButton btnCreateNow = new JButton("Create Now");
+		btnCreateNow.setBorder(null);
 		btnCreateNow.setForeground(new Color(255, 255, 255));
 		btnCreateNow.setBackground(new Color(0, 0, 0));
 		btnCreateNow.setFont(new Font("Arial", Font.BOLD, 11));
@@ -114,6 +116,15 @@ public class PremiereInterface {
 		lblVersion.setForeground(new Color(51, 153, 153));
 		lblVersion.setBounds(198, 468, 85, 14);
 		frame.getContentPane().add(lblVersion);
+		
+		JButton btnForgotPassword = new JButton("Forgot password ?");
+		btnForgotPassword.setHorizontalAlignment(SwingConstants.LEFT);
+		btnForgotPassword.setBorder(null);
+		btnForgotPassword.setBackground(new Color(255, 255, 255));
+		btnForgotPassword.setForeground(new Color(51, 204, 255));
+		btnForgotPassword.setFont(new Font("Arial", Font.BOLD, 11));
+		btnForgotPassword.setBounds(326, 215, 111, 29);
+		frame.getContentPane().add(btnForgotPassword);
 		frame.setBounds(100, 100, 1002, 531);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

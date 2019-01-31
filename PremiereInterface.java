@@ -4,8 +4,12 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+
+import com.DAO.CompteDAO;
+
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -13,12 +17,15 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PremiereInterface {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField login;
+	private JPasswordField passwd;
+	public static int id;
 
 	/**
 	 * Launch the application.
@@ -47,6 +54,7 @@ public class PremiereInterface {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
 		frame.getContentPane().setLayout(null);
@@ -70,16 +78,32 @@ public class PremiereInterface {
 		lblPassword.setBounds(44, 187, 96, 17);
 		frame.getContentPane().add(lblPassword);
 		
-		textField = new JTextField();
-		textField.setBounds(150, 159, 166, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		login = new JTextField();
+		login.setBounds(150, 159, 166, 20);
+		frame.getContentPane().add(login);
+		login.setColumns(10);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(150, 187, 166, 20);
-		frame.getContentPane().add(passwordField);
+		passwd = new JPasswordField();
+		passwd.setBounds(150, 187, 166, 20);
+		frame.getContentPane().add(passwd);
 		
 		JButton btnNewButton = new JButton("Submit");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String l=login.getText().toString(),p=passwd.getText().toString();
+				if(l.equals("")||p.equals(""))
+				{JOptionPane.showMessageDialog(null,"Please, Fills empty fields ");}
+				else {
+					CompteDAO d=new CompteDAO();
+					if(p.equals(d.getComptePasswd(l))){
+						frame.setVisible(false);
+						Menu m=new Menu();
+						m.setVisible(true);
+						id=d.getCompteId(l);
+						System.out.print(id);
+					}else {JOptionPane.showMessageDialog(null,"access denied");}
+				}
+		}});
 		btnNewButton.setBorder(null);
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
 		btnNewButton.setForeground(new Color(255, 255, 255));
@@ -105,6 +129,13 @@ public class PremiereInterface {
 		frame.getContentPane().add(label);
 		
 		JButton btnCreateNow = new JButton("Create Now");
+		btnCreateNow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
+				CreationCompte frameCC=new CreationCompte();
+				frameCC.setVisible(true);
+			}
+		});
 		btnCreateNow.setBorder(null);
 		btnCreateNow.setForeground(new Color(255, 255, 255));
 		btnCreateNow.setBackground(new Color(0, 0, 0));
@@ -117,15 +148,30 @@ public class PremiereInterface {
 		lblVersion.setBounds(198, 468, 85, 14);
 		frame.getContentPane().add(lblVersion);
 		
-		JButton btnForgotPassword = new JButton("Forgot password ?");
+		JButton btnForgotPassword = new JButton("  Forgot password ?");
+		btnForgotPassword.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String l=login.getText().toString();
+				try{if(l.equals("")==false) {
+					CompteDAO d=new CompteDAO();
+					String p=d.getComptePasswd(l);
+					int j=p.length();
+					StringBuilder sb = new StringBuilder(p.substring(0, 3));//intialiser le StringBuilder
+					for(int i=0;i<(j-3);i++){sb.append("*");}
+					JOptionPane.showMessageDialog(null,"Your Password is :"+sb);
+					}else{JOptionPane.showMessageDialog(null,"Please,Fills login first");}}
+				catch(java.lang.StringIndexOutOfBoundsException e) {JOptionPane.showMessageDialog(null,"no account found");}
+				}
+			}
+		);
 		btnForgotPassword.setHorizontalAlignment(SwingConstants.LEFT);
 		btnForgotPassword.setBorder(null);
 		btnForgotPassword.setBackground(new Color(255, 255, 255));
 		btnForgotPassword.setForeground(new Color(51, 204, 255));
 		btnForgotPassword.setFont(new Font("Arial", Font.BOLD, 11));
-		btnForgotPassword.setBounds(326, 215, 111, 29);
+		btnForgotPassword.setBounds(326, 215, 120, 29);
 		frame.getContentPane().add(btnForgotPassword);
-		frame.setBounds(100, 100, 1002, 531);
+		frame.setBounds(350, 140, 1002, 531);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

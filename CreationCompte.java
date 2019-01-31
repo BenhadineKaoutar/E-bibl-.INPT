@@ -6,8 +6,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.DAO.*;
+import com.classes.*;
+
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -16,18 +21,21 @@ import javax.swing.UIManager;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
+import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CreationCompte extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
+	private JTextField ln;
+	private JTextField fn;
+	private JTextField nn;
+	private JTextField login;
+	private JTextField email;
+	private JPasswordField passwd;
+	private JPasswordField Cpasswd;
+	private JTextField ville;
 
 	/**
 	 * Launch the application.
@@ -50,7 +58,7 @@ public class CreationCompte extends JFrame {
 	 */
 	public CreationCompte() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(350, 200, 1002, 531);
+		setBounds(350, 140, 1002, 531);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -60,104 +68,162 @@ public class CreationCompte extends JFrame {
 		JLabel label = new JLabel("");
 		label.setInheritsPopupMenu(false);
 		label.setIcon(new ImageIcon("C:\\Users\\HP\\Desktop\\photo projet\\cese.PNG"));
-		label.setBounds(28, 0, 159, 132);
+		label.setBounds(-12, 11, 159, 102);
 		contentPane.add(label);
 		
-		JLabel lblJjjjjljk = new JLabel("WELCOME TO E-BIBL.");
-		lblJjjjjljk.setForeground(new Color(204, 51, 0));
+		JLabel lblJjjjjljk = new JLabel("WELCOME ");
+		lblJjjjjljk.setVerticalAlignment(SwingConstants.TOP);
 		lblJjjjjljk.setHorizontalAlignment(SwingConstants.CENTER);
+		lblJjjjjljk.setForeground(new Color(204, 51, 0));
 		lblJjjjjljk.setFont(new Font("Arial", Font.BOLD, 22));
 		lblJjjjjljk.setBackground(UIManager.getColor("CheckBox.background"));
-		lblJjjjjljk.setBounds(0, 0, 986, 132);
+		lblJjjjjljk.setBounds(-2, 124, 186, 34);
 		contentPane.add(lblJjjjjljk);
 		
 		JLabel lblNom = new JLabel("Last Name");
-		lblNom.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblNom.setBounds(104, 156, 97, 14);
+		lblNom.setForeground(Color.WHITE);
+		lblNom.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNom.setBounds(324, 151, 97, 14);
 		contentPane.add(lblNom);
 		
 		JLabel lblFirstName = new JLabel("First Name");
-		lblFirstName.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblFirstName.setBounds(104, 181, 68, 14);
+		lblFirstName.setForeground(Color.WHITE);
+		lblFirstName.setFont(new Font("Arial", Font.BOLD, 16));
+		lblFirstName.setBounds(324, 176, 122, 14);
 		contentPane.add(lblFirstName);
 		
 		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblLogin.setBounds(104, 226, 68, 20);
+		lblLogin.setForeground(Color.WHITE);
+		lblLogin.setFont(new Font("Arial", Font.BOLD, 16));
+		lblLogin.setBounds(324, 221, 68, 20);
 		contentPane.add(lblLogin);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblPassword.setBounds(104, 251, 68, 14);
+		lblPassword.setForeground(Color.WHITE);
+		lblPassword.setFont(new Font("Arial", Font.BOLD, 16));
+		lblPassword.setBounds(324, 246, 122, 14);
 		contentPane.add(lblPassword);
 		
 		JLabel lblConfirmPassword = new JLabel("Confirm password");
-		lblConfirmPassword.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblConfirmPassword.setBounds(104, 276, 122, 14);
+		lblConfirmPassword.setForeground(Color.WHITE);
+		lblConfirmPassword.setFont(new Font("Arial", Font.BOLD, 16));
+		lblConfirmPassword.setBounds(324, 271, 147, 14);
 		contentPane.add(lblConfirmPassword);
 		
-		JLabel lblBirthDate = new JLabel("Birth date");
-		lblBirthDate.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblBirthDate.setBounds(104, 326, 97, 14);
-		contentPane.add(lblBirthDate);
-		
 		JLabel lblEmail = new JLabel("e-mail");
-		lblEmail.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblEmail.setBounds(104, 301, 97, 14);
+		lblEmail.setForeground(Color.WHITE);
+		lblEmail.setFont(new Font("Arial", Font.BOLD, 17));
+		lblEmail.setBounds(324, 296, 97, 14);
 		contentPane.add(lblEmail);
 		
-		textField = new JTextField();
-		textField.setBounds(239, 154, 165, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		ln = new JTextField();
+		ln.setFont(new Font("Calibri", Font.PLAIN, 15));
+		ln.setBounds(559, 151, 165, 20);
+		contentPane.add(ln);
+		ln.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(239, 178, 165, 20);
-		contentPane.add(textField_1);
+		fn = new JTextField();
+		fn.setFont(new Font("Calibri", Font.PLAIN, 15));
+		fn.setColumns(10);
+		fn.setBounds(559, 175, 165, 20);
+		contentPane.add(fn);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(239, 202, 165, 20);
-		contentPane.add(textField_2);
+		nn = new JTextField();
+		nn.setFont(new Font("Calibri", Font.PLAIN, 15));
+		nn.setColumns(10);
+		nn.setBounds(559, 199, 165, 20);
+		contentPane.add(nn);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(239, 226, 165, 20);
-		contentPane.add(textField_3);
+		login = new JTextField();
+		login.setFont(new Font("Calibri", Font.PLAIN, 15));
+		login.setColumns(10);
+		login.setBounds(559, 223, 165, 20);
+		contentPane.add(login);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(239, 298, 165, 20);
-		contentPane.add(textField_6);
+		email = new JTextField();
+		email.setFont(new Font("Calibri", Font.PLAIN, 15));
+		email.setColumns(10);
+		email.setBounds(559, 295, 165, 20);
+		contentPane.add(email);
 		
 		JLabel lblNickName = new JLabel("Nick name");
-		lblNickName.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblNickName.setBounds(104, 206, 68, 14);
+		lblNickName.setForeground(Color.WHITE);
+		lblNickName.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNickName.setBounds(324, 201, 122, 14);
 		contentPane.add(lblNickName);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(239, 322, 165, 20);
-		contentPane.add(textField_7);
-		
 		JButton btnNewButton = new JButton("Create Now");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String a=ln.getText().toString(),b=fn.getText().toString(),c=nn.getText().toString(),d=login.getText().toString(),e=passwd.getText().toString(),e1=Cpasswd.getText().toString(),f=email.getText().toString(),g=ville.getText().toString();
+				if(a.equals("")||b.equals("")||c.equals("")||d.equals("")||e.equals("")||f.equals("")) {
+					JOptionPane.showMessageDialog(null,"Check your datas then Try again");
+					}
+				else{if(e.equals(e1)) {
+					ClientDAO clientD=new ClientDAO();
+					CompteDAO compteD=new CompteDAO();
+					Client client=new Client(a,b,c,f,g);
+					Compte compte=new Compte(client,d,e);
+					clientD.create(client);
+					compteD.create(compte);	
+					setVisible(false);
+					Menu fraM=new Menu();
+					fraM.setVisible(true);
+				}else{JOptionPane.showMessageDialog(null,"Check your Password Please");}}
+				}});
 		btnNewButton.setForeground(new Color(204, 51, 0));
 		btnNewButton.setBackground(new Color(0, 0, 0));
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 14));
-		btnNewButton.setBounds(159, 390, 159, 34);
+		btnNewButton.setBounds(10, 390, 165, 34);
 		contentPane.add(btnNewButton);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(239, 250, 165, 20);
-		contentPane.add(passwordField);
+		JLabel lblVille = new JLabel("Ville");
+		lblVille.setForeground(Color.WHITE);
+		lblVille.setFont(new Font("Arial", Font.BOLD, 17));
+		lblVille.setBounds(324, 321, 97, 14);
+		contentPane.add(lblVille);
 		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(239, 274, 165, 20);
-		contentPane.add(passwordField_1);
+		ville = new JTextField();
+		ville.setFont(new Font("Calibri", Font.PLAIN, 15));
+		ville.setColumns(10);
+		ville.setBounds(559, 320, 165, 20);
+		contentPane.add(ville);
+		
+		passwd = new JPasswordField();
+		passwd.setFont(new Font("Calibri", Font.PLAIN, 15));
+		passwd.setBounds(559, 247, 165, 20);
+		contentPane.add(passwd);
+		
+		Cpasswd = new JPasswordField();
+		Cpasswd.setFont(new Font("Calibri", Font.PLAIN, 15));
+		Cpasswd.setBounds(559, 271, 165, 20);
+		contentPane.add(Cpasswd);
 		
 		JLabel label_1 = new JLabel("");
 		label_1.setBounds(792, 182, 46, 14);
 		contentPane.add(label_1);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\HP\\Desktop\\photo projet\\4afe2ef405e835046f23cffa738aba0c.jpg"));
+		lblNewLabel.setBounds(186, 0, 800, 493);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblTo = new JLabel("TO");
+		lblTo.setVerticalAlignment(SwingConstants.TOP);
+		lblTo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTo.setForeground(new Color(204, 51, 0));
+		lblTo.setFont(new Font("Arial", Font.BOLD, 22));
+		lblTo.setBackground(SystemColor.menu);
+		lblTo.setBounds(0, 192, 184, 34);
+		contentPane.add(lblTo);
+		
+		JLabel lblEbilb = new JLabel("E-BILB.");
+		lblEbilb.setVerticalAlignment(SwingConstants.TOP);
+		lblEbilb.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEbilb.setForeground(new Color(204, 51, 0));
+		lblEbilb.setFont(new Font("Arial", Font.BOLD, 22));
+		lblEbilb.setBackground(SystemColor.menu);
+		lblEbilb.setBounds(0, 263, 184, 34);
+		contentPane.add(lblEbilb);
 	}
 }
